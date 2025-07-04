@@ -1,0 +1,263 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id           String        @id @default(cuid())
+  name         String
+  slug         String        @unique
+  icon         String?
+  description  String?
+  parentId     String?
+  parent       Category?     @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  subcategories Category[]   @relation("CategoryHierarchy")
+  products     Product[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("categories")
+}
+
+model Brand {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  logo      String?
+  website   String?
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("brands")
+}
+
+model Product {
+  id              String           @id @default(cuid())
+  name            String
+  slug            String           @unique
+  description     String?
+  shortDescription String?
+  
+  // Pricing
+  basePriceUSD    Decimal?         // Para productos importados
+  basePriceARS    Decimal?         // Para productos nacionales
+  originalPriceUSD Decimal?        // Precio original en USD para descuentos
+  originalPriceARS Decimal?        // Precio original en ARS para descuentos
+  isImported      Boolean          @default(false)
+  
+  // Inventory
+  sku             String           @unique
+  barcode         String?
+  inStock         Boolean          @default(true)
+  stockQuantity   Int              @default(0)
+  lowStockAlert   Int              @default(10)
+  
+  // Product details
+  weight          Decimal?
+  dimensions      String?          // JSON string: {"length": 10, "width": 5, "height": 3}
+  specifications  String?          // JSON string
+  
+  // Images
+  images          ProductImage[]
+  primaryImage    String?
+  
+  // Categories and brands
+  categoryId      String
+  category        Category         @relation(fields: [categoryId], references: [id])
+  brandId         String?
+  brand           Brand?           @relation(fields: [brandId], references: [id])
+  
+  // Features
+  requiresCLU     Boolean          @default(false)
+  freeShipping    Boolean          @default(false)
+  featured        Boolean          @default(false)
+  onSale          Boolean          @default(false)
+  
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  tags            ProductTag[]
+  
+  // Relations
+  cartItems       CartItem[]
+  orderItems      OrderItem[]
+  reviews         ProductReview[]
+  
+  // Timestamps
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  publishedAt     DateTime?
+
+  @@map("products")
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  alt       String?
+  order     Int     @default(0)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+model ProductTag {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  products Product[]
+
+  @@map("product_tags")
+}
+
+model ProductReview {
+  id        String   @id @default(cuid())
+  rating    Int      // 1-5 stars
+  title     String?
+  comment   String?
+  userName  String
+  userEmail String
+  verified  Boolean  @default(false)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("product_reviews")
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  sessionId String     @unique
+  userId    String?    // Para usuarios registrados
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@unique([cartId, productId])
+  @@map("cart_items")
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   String      @unique
+  status        OrderStatus @default(PENDING)
+  
+  // Customer info
+  customerName  String
+  customerEmail String
+  customerPhone String?
+  
+  // Shipping
+  shippingAddress String
+  shippingCity    String
+  shippingState   String
+  shippingZip     String
+  shippingMethod  String
+  shippingCost    Decimal
+  
+  // Pricing (guardamos los precios al momento de la compra)
+  subtotal      Decimal
+  taxAmount     Decimal
+  shippingAmount Decimal
+  discountAmount Decimal     @default(0)
+  totalAmount   Decimal
+  exchangeRate  Decimal?    // Tipo de cambio al momento de la compra
+  
+  // Payment
+  paymentMethod String?
+  paymentStatus PaymentStatus @default(PENDING)
+  paidAt        DateTime?
+  
+  // Items
+  items         OrderItem[]
+  
+  // Special requirements
+  requiresCLU   Boolean       @default(false)
+  cluNumber     String?
+  cluExpiry     DateTime?
+  
+  // Timestamps
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id            String  @id @default(cuid())
+  quantity      Int
+  unitPrice     Decimal // Precio unitario al momento de la compra
+  totalPrice    Decimal // Precio total (quantity * unitPrice)
+  orderId       String
+  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product @relation(fields: [productId], references: [id])
+  productName   String  // Guardamos el nombre por si se modifica el producto
+  productSku    String  // Guardamos el SKU
+
+  @@map("order_items")
+}
+
+model ExchangeRate {
+  id        String   @id @default(cuid())
+  fromCurrency String // USD
+  toCurrency   String // ARS
+  rate      Decimal
+  source    String?  // Fuente del tipo de cambio (ej: "banco_nacion", "dolar_blue")
+  createdAt DateTime @default(now())
+
+  @@unique([fromCurrency, toCurrency, createdAt])
+  @@map("exchange_rates")
+}
+
+model PriceRule {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  importedMarkup  Decimal  @default(1.15) // 15% markup para importados
+  nationalMarkup  Decimal  @default(1.10) // 10% markup para nacionales
+  minOrderFreeShipping Decimal @default(50000) // Monto mínimo para envío gratis
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("price_rules")
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
