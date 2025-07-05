@@ -1,4 +1,4 @@
-// src/app/productos/page.tsx
+// src/app/categoria/[slug]/page.tsx
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -6,10 +6,10 @@ import { Header } from '@/components/ui/Header'
 import { Footer } from '@/components/ui/Footer'
 import { ProductCard } from '@/components/ui/ProductCard'
 import { CartDrawer } from '@/components/ui/CartDrawer'
-import { ChevronDown, Grid, List, Heart } from 'lucide-react'
+import { ChevronDown, Grid, List, SlidersHorizontal, Heart } from 'lucide-react'
 
-// Mock products data - Estilo Triestina
-const allProducts = [
+// Mock products data similar to Triestina
+const categoryProducts = [
   {
     id: '1',
     name: 'PISTOLA TAURUS 9MM G3C INO/MARRON/12T/2CA/EST',
@@ -17,11 +17,11 @@ const allProducts = [
     brand: 'TAURUS',
     price: 771400,
     originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=400&h=300&fit=crop',
+    image: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=400&h=400&fit=crop',
     rating: 0,
     reviews: 0,
     inStock: true,
-    stockQuantity: 3,
+    stockQuantity: 5,
     requiresCLU: true,
     freeShipping: false,
     isImported: false,
@@ -34,78 +34,12 @@ const allProducts = [
   },
   {
     id: '2',
-    name: 'PISTOLA TAURUS 9MM G3C INO/POL/12T/2CA/EST',
-    category: 'Pistolas Nuevas',
-    brand: 'TAURUS',
-    price: 771400,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 5,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: false,
-    slug: 'pistola-taurus-9mm-g3c-pol',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '3',
-    name: 'PISTOLA TAURUS 9MM G3C INO/OLIVA/12T/2CA/EST',
-    category: 'Pistolas Nuevas',
-    brand: 'TAURUS',
-    price: 771400,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 4,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: false,
-    slug: 'pistola-taurus-9mm-g3c-oliva',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '4',
-    name: 'PISTOLA TAURUS 9MM G3C INO/GRIS/12T/2CA/EST',
-    category: 'Pistolas Nuevas',
-    brand: 'TAURUS',
-    price: 771400,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 2,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: false,
-    slug: 'pistola-taurus-9mm-g3c-gris',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '5',
     name: 'PISTOLA BERETTA 22LR NEOS 4.5″/10T/INO',
-    category: 'Pistolas Nuevas',
+    category: 'Pistolas Nuevas', 
     brand: 'BERETTA',
     price: 1092500,
     originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400&h=300&fit=crop',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop',
     rating: 0,
     reviews: 0,
     inStock: true,
@@ -121,17 +55,17 @@ const allProducts = [
     updatedAt: new Date()
   },
   {
-    id: '6',
+    id: '3',
     name: 'PISTOLA SIG SAUER 9MM P365 XL BXR3 PAV/12T/CA/EST',
     category: 'Pistolas Nuevas',
     brand: 'SIG SAUER',
     price: 2138000,
     originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop',
+    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=400&h=400&fit=crop',
     rating: 0,
     reviews: 0,
     inStock: true,
-    stockQuantity: 1,
+    stockQuantity: 2,
     requiresCLU: true,
     freeShipping: false,
     isImported: true,
@@ -141,142 +75,9 @@ const allProducts = [
     categoryId: 'pistolas-nuevas',
     createdAt: new Date(),
     updatedAt: new Date()
-  },
-  {
-    id: '7',
-    name: 'PISTOLA GLOCK 45ACP MOD.30 GEN4 POL/10T/96MM/CA/EST',
-    category: 'Pistolas Nuevas',
-    brand: 'GLOCK',
-    price: 1993000,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 2,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: true,
-    slug: 'pistola-glock-45acp-mod30',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '8',
-    name: 'PISTOLA GLOCK 40SW 22/5 POL/15T/114MM/CA/EST',
-    category: 'Pistolas Nuevas',
-    brand: 'GLOCK',
-    price: 1827000,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 1,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: true,
-    slug: 'pistola-glock-40sw-22-5',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '9',
-    name: 'PISTOLA SIG SAUER 9MM P320 SXG5-9-STAS 3CA/21T/216MM',
-    category: 'Pistolas Nuevas',
-    brand: 'SIG SAUER',
-    price: 6240000,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 1,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: true,
-    slug: 'pistola-sig-sauer-9mm-p320',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '10',
-    name: 'PISTOLA SIG SAUER P365XCA MACRO BXR3 OR MS 9MM',
-    category: 'Pistolas Nuevas',
-    brand: 'SIG SAUER',
-    price: 2290000,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 2,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: true,
-    slug: 'pistola-sig-sauer-p365xca',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '11',
-    name: 'PISTOLA TAURUS 9MM G3C INO/DEEP PURPLE/12T/2CA/EST',
-    category: 'Pistolas Nuevas',
-    brand: 'TAURUS',
-    price: 771400,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 3,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: false,
-    slug: 'pistola-taurus-9mm-g3c-purple',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: '12',
-    name: 'PISTOLA TAURUS 40SW MTH40C PAV/11-15T',
-    category: 'Pistolas Nuevas',
-    brand: 'TAURUS',
-    price: 888800,
-    originalPrice: null,
-    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop',
-    rating: 0,
-    reviews: 0,
-    inStock: true,
-    stockQuantity: 2,
-    requiresCLU: true,
-    freeShipping: false,
-    isImported: false,
-    slug: 'pistola-taurus-40sw-mth40c',
-    featured: false,
-    onSale: false,
-    categoryId: 'pistolas-nuevas',
-    createdAt: new Date(),
-    updatedAt: new Date()
   }
 ]
 
-// Categories data structure - Estilo Triestina
 const categoriesData = [
   {
     name: 'Airsoft',
@@ -291,14 +92,9 @@ const categoriesData = [
     subcategories: [
       { name: 'Accesorios', count: 331 },
       { name: 'Aire Comprimido y CO2', count: 223 },
-      { 
-        name: 'Armas Cortas', 
-        count: 139, 
-        expanded: true, 
-        subcategories: [
-          { name: 'Pistolas Nuevas', count: 127, active: true }
-        ]
-      },
+      { name: 'Armas Cortas', count: 139, expanded: true, subcategories: [
+        { name: 'Pistolas Nuevas', count: 127 }
+      ]},
       { name: 'Armas Largas', count: 104 },
       { name: 'Arquería', count: 5 },
       { name: 'Defensa Personal', count: 34 },
@@ -327,64 +123,21 @@ const categoriesData = [
   }
 ]
 
-// Brands data
 const brands = [
   { name: 'BERETTA', count: 4 },
   { name: 'BERSA', count: 60 },
   { name: 'BROWNING', count: 1 },
   { name: 'CANIK', count: 1 },
-  { name: 'CZ', count: 1 },
-  { name: 'GLOCK', count: 15 },
-  { name: 'SIG SAUER', count: 8 },
-  { name: 'TAURUS', count: 25 }
+  { name: 'CZ', count: 1 }
 ]
 
-export default function ProductosPage() {
+export default function CategoriaPage() {
   const [cartItems, setCartItems] = useState([])
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [sortBy, setSortBy] = useState('menu_order')
   const [viewMode, setViewMode] = useState('grid')
   const [priceRange, setPriceRange] = useState([380700, 8502500])
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
-  const [filteredProducts, setFilteredProducts] = useState(allProducts)
-  const [currentPage, setCurrentPage] = useState(1)
-  const productsPerPage = 12
-
-  // Apply filters
-  useEffect(() => {
-    let filtered = [...allProducts]
-
-    // Brand filter
-    if (selectedBrands.length > 0) {
-      filtered = filtered.filter(product => selectedBrands.includes(product.brand))
-    }
-
-    // Price filter
-    filtered = filtered.filter(product => 
-      product.price >= priceRange[0] && product.price <= priceRange[1]
-    )
-
-    // Sort
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'price':
-          return a.price - b.price
-        case 'price-desc':
-          return b.price - a.price
-        case 'popularity':
-          return b.reviews - a.reviews
-        case 'rating':
-          return b.rating - a.rating
-        case 'date':
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        default:
-          return 0
-      }
-    })
-
-    setFilteredProducts(filtered)
-    setCurrentPage(1)
-  }, [selectedBrands, priceRange, sortBy])
 
   const handleAddToCart = (product) => {
     setCartItems(prev => {
@@ -401,12 +154,6 @@ export default function ProductosPage() {
   }
 
   const cartItemsCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
-
-  // Pagination
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage)
-  const startIndex = (currentPage - 1) * productsPerPage
-  const endIndex = startIndex + productsPerPage
-  const currentProducts = filteredProducts.slice(startIndex, endIndex)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -478,7 +225,7 @@ export default function ProductosPage() {
                             {sub.subcategories && (
                               <div className="ml-4">
                                 {sub.subcategories.map((subsub, subsubIndex) => (
-                                  <div key={subsubIndex} className={`flex items-center justify-between py-1 text-sm cursor-pointer hover:text-orange-600 ${subsub.active ? 'text-orange-600 font-semibold' : ''}`}>
+                                  <div key={subsubIndex} className="flex items-center justify-between py-1 text-sm cursor-pointer hover:text-orange-600 text-orange-600 font-semibold">
                                     <span>{subsub.name}</span>
                                     <span className="text-gray-500">({subsub.count})</span>
                                   </div>
@@ -503,21 +250,6 @@ export default function ProductosPage() {
                 </h3>
               </div>
               <div className="p-4">
-                <div className="flex items-center space-x-2 mb-4">
-                  <input
-                    type="text"
-                    value={`$${priceRange[0].toLocaleString()}`}
-                    className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
-                    readOnly
-                  />
-                  <span>-</span>
-                  <input
-                    type="text"
-                    value={`$${priceRange[1].toLocaleString()}`}
-                    className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
-                    readOnly
-                  />
-                </div>
                 <div className="relative">
                   <input
                     type="range"
@@ -572,7 +304,7 @@ export default function ProductosPage() {
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                   <p className="text-sm text-gray-600">
-                    Mostrando <strong>{startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}</strong> de <strong>{filteredProducts.length}</strong> resultados
+                    Mostrando <strong>1–12</strong> de <strong>127</strong> resultados
                   </p>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -614,7 +346,7 @@ export default function ProductosPage() {
                 : 'space-y-6'
               }
             `}>
-              {currentProducts.map(product => (
+              {categoryProducts.map(product => (
                 <ProductCard
                   key={product.id}
                   product={product}
@@ -629,56 +361,29 @@ export default function ProductosPage() {
             </div>
 
             {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="mt-8 flex justify-center">
-                <nav className="flex items-center space-x-2">
-                  <button 
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                    className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 disabled:opacity-50"
-                  >
-                    « Anterior
-                  </button>
-                  
-                  {[...Array(Math.min(totalPages, 5))].map((_, index) => {
-                    const pageNumber = index + 1
-                    return (
-                      <button
-                        key={pageNumber}
-                        onClick={() => setCurrentPage(pageNumber)}
-                        className={`px-3 py-2 rounded-lg text-sm ${
-                          currentPage === pageNumber 
-                            ? 'bg-orange-600 text-white' 
-                            : 'border border-gray-300 hover:bg-gray-50'
-                        }`}
-                      >
-                        {pageNumber}
-                      </button>
-                    )
-                  })}
-                  
-                  {totalPages > 5 && (
-                    <>
-                      <span className="px-2">...</span>
-                      <button
-                        onClick={() => setCurrentPage(totalPages)}
-                        className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50"
-                      >
-                        {totalPages}
-                      </button>
-                    </>
-                  )}
-                  
-                  <button 
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 disabled:opacity-50"
-                  >
-                    Siguiente »
-                  </button>
-                </nav>
-              </div>
-            )}
+            <div className="mt-8 flex justify-center">
+              <nav className="flex items-center space-x-2">
+                <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 disabled:opacity-50">
+                  « Anterior
+                </button>
+                <button className="px-3 py-2 bg-orange-600 text-white rounded-lg text-sm">
+                  1
+                </button>
+                <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+                  2
+                </button>
+                <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+                  3
+                </button>
+                <span className="px-2">...</span>
+                <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+                  11
+                </button>
+                <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
+                  Siguiente »
+                </button>
+              </nav>
+            </div>
           </div>
         </div>
       </main>

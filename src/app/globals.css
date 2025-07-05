@@ -9,6 +9,25 @@
   
   body {
     font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: #f9fafb;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #ea580c;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c2410c;
   }
 }
 
@@ -26,27 +45,54 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .bg-armeria-pattern {
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(234, 88, 12, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(234, 88, 12, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(234, 88, 12, 0.05) 0%, transparent 50%);
+  }
 }
 
 @layer components {
+  /* Button Styles - Estilo Triestina */
   .btn-primary {
-    @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300;
+    @apply bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg uppercase tracking-wide;
   }
   
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors duration-300;
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition-all duration-300 uppercase tracking-wide;
+  }
+
+  .btn-outline {
+    @apply border-2 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 uppercase tracking-wide;
   }
   
+  /* Input Styles */
   .input-primary {
-    @apply border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent;
+    @apply border-2 border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors;
   }
   
+  /* Card Styles - Estilo Triestina */
   .card {
-    @apply bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300;
+    @apply bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200;
+  }
+
+  .card-triestina {
+    @apply bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-gray-200;
   }
   
+  /* Badge Styles */
   .badge {
-    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide;
   }
   
   .badge-success {
@@ -65,7 +111,84 @@
     @apply badge bg-blue-100 text-blue-800;
   }
 
-  /* Animaciones personalizadas */
+  .badge-offer {
+    @apply badge bg-orange-600 text-white;
+  }
+
+  /* Navigation Styles */
+  .nav-link {
+    @apply text-white hover:bg-orange-700 px-6 py-4 transition-colors font-bold text-sm uppercase tracking-wide;
+  }
+
+  .nav-dropdown {
+    @apply absolute top-full left-0 mt-0 bg-white border border-gray-200 shadow-2xl py-6 px-8 z-50 min-w-[800px] rounded-b-lg;
+  }
+
+  /* Form Styles */
+  .form-group {
+    @apply mb-6;
+  }
+
+  .form-label {
+    @apply block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors;
+  }
+
+  .form-select {
+    @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors bg-white;
+  }
+
+  .form-textarea {
+    @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors resize-none;
+  }
+
+  /* Product Card Styles */
+  .product-card {
+    @apply bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 group;
+  }
+
+  .product-card-image {
+    @apply w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300;
+  }
+
+  .product-price {
+    @apply text-xl font-bold text-orange-600;
+  }
+
+  .product-price-original {
+    @apply text-sm text-gray-500 line-through;
+  }
+
+  /* Header Styles */
+  .header-top {
+    @apply bg-gray-700 text-white text-sm py-2;
+  }
+
+  .header-main {
+    @apply bg-white shadow-md;
+  }
+
+  .header-nav {
+    @apply bg-orange-600 shadow-lg;
+  }
+
+  /* Sidebar Styles */
+  .sidebar-section {
+    @apply bg-white rounded-lg border border-gray-300;
+  }
+
+  .sidebar-header {
+    @apply bg-orange-600 text-white p-4 rounded-t-lg;
+  }
+
+  .sidebar-content {
+    @apply p-4;
+  }
+
+  /* Animation Classes */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
   }
@@ -74,39 +197,18 @@
     animation: slideUp 0.3s ease-out;
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
   }
 
-  @keyframes slideUp {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
   }
 
-  /* Estilos para el carrito */
-  .cart-item {
-    @apply transition-all duration-300 ease-in-out;
-  }
-
-  .cart-item:hover {
-    @apply transform scale-105;
-  }
-
-  /* Loading spinner personalizado */
+  /* Loading Spinner */
   .loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #dc2626;
+    border: 4px solid #f3f4f6;
+    border-top: 4px solid #ea580c;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -116,5 +218,131 @@
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+
+  /* Price Range Slider */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ea580c;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ea580c;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* WhatsApp Float Button */
+  .whatsapp-float {
+    @apply fixed bottom-4 left-4 z-50 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 animate-bounce-slow;
+  }
+
+  /* Mega Menu Styles */
+  .mega-menu {
+    @apply absolute top-full left-0 mt-0 bg-white border border-gray-200 shadow-2xl py-6 px-8 z-50 min-w-[800px] rounded-b-lg;
+  }
+
+  .mega-menu-section {
+    @apply space-y-2;
+  }
+
+  .mega-menu-title {
+    @apply font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide;
+  }
+
+  .mega-menu-link {
+    @apply text-gray-600 hover:text-orange-600 transition-colors text-sm block py-1;
+  }
+
+  /* Breadcrumb Styles */
+  .breadcrumb {
+    @apply flex items-center space-x-2 text-sm;
+  }
+
+  .breadcrumb-item {
+    @apply hover:text-orange-600 transition-colors;
+  }
+
+  .breadcrumb-separator {
+    @apply text-gray-400;
+  }
+
+  /* Footer Styles */
+  .footer-section {
+    @apply space-y-3 text-gray-300;
+  }
+
+  .footer-title {
+    @apply font-bold mb-6 text-white text-lg;
+  }
+
+  .footer-link {
+    @apply hover:text-orange-500 transition-colors text-sm;
+  }
+
+  /* Utility Classes for Triestina Style */
+  .text-triestina {
+    @apply text-orange-600;
+  }
+
+  .bg-triestina {
+    @apply bg-orange-600;
+  }
+
+  .border-triestina {
+    @apply border-orange-600;
+  }
+
+  .hover-triestina {
+    @apply hover:text-orange-600 hover:border-orange-600;
+  }
+
+  /* Category Hero */
+  .category-hero {
+    @apply relative h-64 bg-cover bg-center;
+  }
+
+  .category-hero-overlay {
+    @apply absolute inset-0 bg-black bg-opacity-60;
+  }
+
+  .category-hero-content {
+    @apply relative container mx-auto px-4 h-full flex flex-col justify-center;
+  }
+
+  /* Special Triestina Elements */
+  .triestina-section-divider {
+    @apply h-1 bg-gradient-to-r from-orange-600 to-orange-700 my-8;
+  }
+
+  .triestina-accent {
+    @apply relative;
+  }
+
+  .triestina-accent::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-1 bg-orange-600 transform scale-x-0 transition-transform duration-300;
+  }
+
+  .triestina-accent:hover::after {
+    @apply scale-x-100;
   }
 }

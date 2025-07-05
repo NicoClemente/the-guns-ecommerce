@@ -8,47 +8,43 @@ import Link from 'next/link'
 const heroSlides = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&h=600&fit=crop',
-    title: 'Equipamiento Profesional',
-    subtitle: 'Para fuerzas de seguridad y defensa personal',
-    description: 'Amplio stock de armas de fuego, municiones y equipamiento táctico de las mejores marcas internacionales',
-    buttonText: 'Ver Catálogo',
-    buttonLink: '/productos',
-    textPosition: 'left',
-    overlay: 'bg-black/40'
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&h=500&fit=crop',
+    brand: 'BERSA',
+    title: 'MODELOS EN STOCK',
+    subtitle: 'Rendimiento en cada disparo',
+    buttonText: 'Ver productos',
+    buttonLink: '/categoria/pistolas-nuevas',
+    overlay: 'bg-black/50'
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=1200&h=600&fit=crop',
-    title: 'Nuevos Ingresos',
-    subtitle: 'Pistolas Beretta y Smith & Wesson',
-    description: 'Recibimos nuevos modelos de las marcas más reconocidas del mercado. Consultá disponibilidad y precios.',
-    buttonText: 'Ver Productos',
-    buttonLink: '/categoria/armas-cortas',
-    textPosition: 'right',
-    overlay: 'bg-gray-900/50'
+    image: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=1200&h=500&fit=crop',
+    brand: 'GLOCK',
+    title: 'NUEVOS INGRESOS',
+    subtitle: 'La confiabilidad que necesitás',
+    buttonText: 'Ver productos',
+    buttonLink: '/categoria/pistolas-nuevas',
+    overlay: 'bg-black/50'
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1200&h=600&fit=crop',
-    title: 'Óptica de Precisión',
-    subtitle: 'Miras telescópicas y puntos rojos',
-    description: 'La mejor selección de óptica para tiro deportivo y caza. Marcas Leupold, Eotech, Aimpoint y más.',
-    buttonText: 'Ver Óptica',
-    buttonLink: '/categoria/optica',
-    textPosition: 'center',
-    overlay: 'bg-blue-900/40'
+    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=1200&h=500&fit=crop',
+    brand: 'FEDERAL',
+    title: 'MUNICIONES',
+    subtitle: 'Precisión en cada cartucho',
+    buttonText: 'Ver productos',
+    buttonLink: '/categoria/municiones',
+    overlay: 'bg-black/50'
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=1200&h=600&fit=crop',
-    title: 'Promociones Especiales',
-    subtitle: 'Hasta 30% de descuento',
-    description: 'Aprovechá nuestras ofertas en productos seleccionados. Válido hasta agotar stock.',
-    buttonText: 'Ver Ofertas',
-    buttonLink: '/ofertas',
-    textPosition: 'left',
-    overlay: 'bg-red-900/50'
+    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1200&h=500&fit=crop',
+    brand: 'LEUPOLD',
+    title: 'ÓPTICA PREMIUM',
+    subtitle: 'Visión clara del objetivo',
+    buttonText: 'Ver productos',
+    buttonLink: '/categoria/optica',
+    overlay: 'bg-black/50'
   }
 ]
 
@@ -61,7 +57,7 @@ export function HeroSlider() {
 
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
-    }, 6000)
+    }, 5000)
 
     return () => clearInterval(timer)
   }, [isPlaying])
@@ -76,27 +72,18 @@ export function HeroSlider() {
     setIsPlaying(false)
   }
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setCurrentSlide(index)
     setIsPlaying(false)
   }
 
-  const getTextAlignment = (position) => {
-    switch (position) {
-      case 'left': return 'text-left items-start'
-      case 'right': return 'text-right items-end'
-      case 'center': return 'text-center items-center'
-      default: return 'text-left items-start'
-    }
-  }
-
   return (
-    <div className="relative h-[70vh] lg:h-[80vh] overflow-hidden">
+    <div className="relative h-[500px] overflow-hidden">
       {heroSlides.map((slide, index) => (
         <div
           key={slide.id}
           className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-            index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+            index === currentSlide ? 'opacity-100' : 'opacity-0'
           }`}
         >
           <img
@@ -106,31 +93,35 @@ export function HeroSlider() {
           />
           <div className={`absolute inset-0 ${slide.overlay}`} />
           
-          <div className="absolute inset-0 flex items-center">
-            <div className="container mx-auto px-4">
-              <div className={`flex flex-col max-w-2xl ${getTextAlignment(slide.textPosition)} ${
-                slide.textPosition === 'right' ? 'ml-auto' : 
-                slide.textPosition === 'center' ? 'mx-auto' : ''
-              }`}>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
-                  {slide.title}
-                </h1>
-                <h2 className="text-xl md:text-2xl lg:text-3xl text-white/90 mb-6 font-light">
-                  {slide.subtitle}
-                </h2>
-                <p className="text-lg md:text-xl text-white/80 mb-8 leading-relaxed">
-                  {slide.description}
-                </p>
-                <div>
-                  <Link
-                    href={slide.buttonLink}
-                    className="inline-block bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
-                  >
-                    {slide.buttonText}
-                  </Link>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center text-white max-w-4xl px-4">
+              {/* Brand Badge */}
+              <div className="inline-block bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 mb-6 border border-white/30">
+                <span className="text-white font-bold text-lg tracking-wider">
+                  {slide.brand}
+                </span>
+                <div className="text-xs text-white/80 mt-1">
+                  You Can Trust
                 </div>
-  
               </div>
+              
+              {/* Main Title */}
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight tracking-wide">
+                {slide.title}
+              </h1>
+              
+              {/* Subtitle */}
+              <p className="text-lg md:text-xl text-white/90 mb-8 font-light">
+                {slide.subtitle}
+              </p>
+              
+              {/* CTA Button */}
+              <Link
+                href={slide.buttonLink}
+                className="inline-block bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-xl uppercase tracking-wide"
+              >
+                {slide.buttonText}
+              </Link>
             </div>
           </div>
         </div>
@@ -139,7 +130,7 @@ export function HeroSlider() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 lg:left-8 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm border border-white/30"
         onMouseEnter={() => setIsPlaying(false)}
       >
         <ChevronLeft className="h-6 w-6" />
@@ -147,7 +138,7 @@ export function HeroSlider() {
       
       <button
         onClick={nextSlide}
-        className="absolute right-4 lg:right-8 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm border border-white/30"
         onMouseEnter={() => setIsPlaying(false)}
       >
         <ChevronRight className="h-6 w-6" />
@@ -161,44 +152,11 @@ export function HeroSlider() {
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
               index === currentSlide 
-                ? 'bg-white scale-125' 
+                ? 'bg-orange-500 scale-125' 
                 : 'bg-white/50 hover:bg-white/75'
             }`}
           />
         ))}
-      </div>
-
-      {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20">
-        <div 
-          className="h-full bg-red-600 transition-all duration-300"
-          style={{ width: `${((currentSlide + 1) / heroSlides.length) * 100}%` }}
-        />
-      </div>
-
-      {/* Play/Pause Control */}
-      <button
-        onClick={() => setIsPlaying(!isPlaying)}
-        className="absolute top-6 right-6 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-all duration-300 backdrop-blur-sm"
-      >
-        {isPlaying ? (
-          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M6 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1zM14 4a1 1 0 011 1v10a1 1 0 11-2 0V5a1 1 0 011-1z" clipRule="evenodd" />
-          </svg>
-        ) : (
-          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 000 1.414l4 4a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L10 10.586 6.707 7.293a1 1 0 00-1.414 0z" clipRule="evenodd" />
-          </svg>
-        )}
-      </button>
-
-      {/* Mobile Optimizations */}
-      <div className="absolute inset-x-0 bottom-16 flex justify-center md:hidden">
-        <div className="bg-black/50 rounded-full px-4 py-2 backdrop-blur-sm">
-          <span className="text-white text-sm">
-            {currentSlide + 1} / {heroSlides.length}
-          </span>
-        </div>
       </div>
     </div>
   )
