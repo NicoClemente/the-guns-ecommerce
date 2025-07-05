@@ -6,9 +6,9 @@ import { Header } from '@/components/ui/Header'
 import { Footer } from '@/components/ui/Footer'
 import { ProductCard } from '@/components/ui/ProductCard'
 import { CartDrawer } from '@/components/ui/CartDrawer'
-import { ChevronDown, Grid, List, SlidersHorizontal, Heart, Star, Filter } from 'lucide-react'
+import { ChevronDown, Grid, List, SlidersHorizontal, Heart } from 'lucide-react'
 
-// Mock products data - Exacto como Triestina
+// Mock products data similar to Triestina
 const categoryProducts = [
   {
     id: '1',
@@ -29,8 +29,6 @@ const categoryProducts = [
     featured: false,
     onSale: false,
     categoryId: 'pistolas-nuevas',
-    caliber: '9mm',
-    mechanism: 'semiautomatico',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -53,8 +51,6 @@ const categoryProducts = [
     featured: false,
     onSale: false,
     categoryId: 'pistolas-nuevas',
-    caliber: '.22 LR',
-    mechanism: 'semiautomatico',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -77,15 +73,11 @@ const categoryProducts = [
     featured: false,
     onSale: false,
     categoryId: 'pistolas-nuevas',
-    caliber: '9mm',
-    mechanism: 'semiautomatico',
     createdAt: new Date(),
     updatedAt: new Date()
-  },
-  // ... más productos aquí
+  }
 ]
 
-// Estructura de categorías exacta como Triestina
 const categoriesData = [
   {
     name: 'Airsoft',
@@ -100,16 +92,9 @@ const categoriesData = [
     subcategories: [
       { name: 'Accesorios', count: 331 },
       { name: 'Aire Comprimido y CO2', count: 223 },
-      { 
-        name: 'Armas Cortas', 
-        count: 139, 
-        expanded: true, 
-        subcategories: [
-          { name: 'Pistolas Nuevas', count: 127, active: true },
-          { name: 'Pistolas Usadas', count: 8 },
-          { name: 'Revólveres Nuevos', count: 4 }
-        ]
-      },
+      { name: 'Armas Cortas', count: 139, expanded: true, subcategories: [
+        { name: 'Pistolas Nuevas', count: 127 }
+      ]},
       { name: 'Armas Largas', count: 104 },
       { name: 'Arquería', count: 5 },
       { name: 'Defensa Personal', count: 34 },
@@ -138,38 +123,12 @@ const categoriesData = [
   }
 ]
 
-// Filtros por calibre - Exacto como Triestina
-const caliberFilters = [
-  { name: '.22 LR', count: 54 },
-  { name: '9mm', count: 42 },
-  { name: '.380 ACP', count: 28 },
-  { name: '.40 SW', count: 15 },
-  { name: '.45 ACP', count: 12 },
-  { name: '.357 Magnum', count: 8 },
-  { name: '12/70', count: 35 },
-  { name: '20/70', count: 12 }
-]
-
-// Filtros por mecanismo - Exacto como Triestina
-const mechanismFilters = [
-  { name: 'Semiautomático', count: 34 },
-  { name: 'Revólver', count: 18 },
-  { name: 'PCP', count: 2 },
-  { name: 'Resorte', count: 45 },
-  { name: 'CO2', count: 23 }
-]
-
-// Marcas - Exacto como Triestina
 const brands = [
   { name: 'BERETTA', count: 4 },
   { name: 'BERSA', count: 60 },
   { name: 'BROWNING', count: 1 },
   { name: 'CANIK', count: 1 },
-  { name: 'CZ', count: 1 },
-  { name: 'GLOCK', count: 15 },
-  { name: 'SIG SAUER', count: 8 },
-  { name: 'TAURUS', count: 25 },
-  { name: 'SMITH & WESSON', count: 12 }
+  { name: 'CZ', count: 1 }
 ]
 
 export default function CategoriaPage() {
@@ -179,10 +138,6 @@ export default function CategoriaPage() {
   const [viewMode, setViewMode] = useState('grid')
   const [priceRange, setPriceRange] = useState([380700, 8502500])
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
-  const [selectedCalibers, setSelectedCalibers] = useState<string[]>([])
-  const [selectedMechanisms, setSelectedMechanisms] = useState<string[]>([])
-  const [showOnlyInStock, setShowOnlyInStock] = useState(false)
-  const [showOnlyRequiresCLU, setShowOnlyRequiresCLU] = useState(false)
 
   const handleAddToCart = (product) => {
     setCartItems(prev => {
@@ -208,7 +163,7 @@ export default function CategoriaPage() {
         currentExchangeRate={1450}
       />
 
-      {/* Hero Section with Breadcrumbs - Exacto como Triestina */}
+      {/* Hero Section with Breadcrumbs */}
       <div 
         className="relative h-64 bg-cover bg-center"
         style={{
@@ -231,22 +186,21 @@ export default function CategoriaPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white">
             Pistolas Nuevas
           </h1>
-          <p className="text-white/90 mt-2">Todas las marcas, el mayor surtido en pistolas</p>
         </div>
       </div>
 
       <main className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar - Exacto como Triestina */}
+          {/* Sidebar - Estilo Triestina */}
           <aside className="w-full lg:w-80 space-y-6">
-            {/* Favorites Button - Exacto como Triestina */}
-            <button className="w-full bg-white border border-gray-300 rounded-lg p-4 flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors shadow-sm">
+            {/* Favorites Button */}
+            <button className="w-full bg-white border border-gray-300 rounded-lg p-4 flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors">
               <Heart className="h-5 w-5 text-gray-600" />
               <span className="font-semibold text-gray-700">Favoritos</span>
             </button>
 
-            {/* Categories Filter - Exacto como Triestina */}
-            <div className="bg-white rounded-lg border border-gray-300 shadow-sm">
+            {/* Categories Filter */}
+            <div className="bg-white rounded-lg border border-gray-300">
               <div className="bg-orange-600 text-white p-4 rounded-t-lg">
                 <h3 className="font-bold text-lg flex items-center justify-between">
                   Categorías
@@ -256,22 +210,22 @@ export default function CategoriaPage() {
               <div className="p-4">
                 {categoriesData.map((category, index) => (
                   <div key={index} className="mb-2">
-                    <div className="flex items-center justify-between py-2 cursor-pointer hover:text-orange-600 transition-colors">
-                      <span className="text-sm font-medium">{category.name}</span>
+                    <div className="flex items-center justify-between py-2 cursor-pointer hover:text-orange-600">
+                      <span className="text-sm">{category.name}</span>
                       <span className="text-sm text-gray-500">({category.count})</span>
                     </div>
                     {category.subcategories && category.subcategories.length > 0 && (
                       <div className="ml-4 space-y-1">
                         {category.subcategories.map((sub, subIndex) => (
                           <div key={subIndex}>
-                            <div className="flex items-center justify-between py-1 text-sm cursor-pointer hover:text-orange-600 transition-colors">
-                              <span className="font-medium">{sub.name}</span>
+                            <div className="flex items-center justify-between py-1 text-sm cursor-pointer hover:text-orange-600">
+                              <span>{sub.name}</span>
                               <span className="text-gray-500">({sub.count})</span>
                             </div>
                             {sub.subcategories && (
                               <div className="ml-4">
                                 {sub.subcategories.map((subsub, subsubIndex) => (
-                                  <div key={subsubIndex} className={`flex items-center justify-between py-1 text-sm cursor-pointer transition-colors ${subsub.active ? 'text-orange-600 font-semibold' : 'hover:text-orange-600'}`}>
+                                  <div key={subsubIndex} className="flex items-center justify-between py-1 text-sm cursor-pointer hover:text-orange-600 text-orange-600 font-semibold">
                                     <span>{subsub.name}</span>
                                     <span className="text-gray-500">({subsub.count})</span>
                                   </div>
@@ -287,8 +241,8 @@ export default function CategoriaPage() {
               </div>
             </div>
 
-            {/* Price Filter - Exacto como Triestina */}
-            <div className="bg-white rounded-lg border border-gray-300 shadow-sm">
+            {/* Price Filter */}
+            <div className="bg-white rounded-lg border border-gray-300">
               <div className="bg-orange-600 text-white p-4 rounded-t-lg">
                 <h3 className="font-bold text-lg flex items-center justify-between">
                   Precio
@@ -296,21 +250,6 @@ export default function CategoriaPage() {
                 </h3>
               </div>
               <div className="p-4">
-                <div className="flex items-center space-x-2 mb-4">
-                  <input
-                    type="text"
-                    value={`${priceRange[0].toLocaleString()}`}
-                    className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
-                    readOnly
-                  />
-                  <span>-</span>
-                  <input
-                    type="text"
-                    value={`${priceRange[1].toLocaleString()}`}
-                    className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
-                    readOnly
-                  />
-                </div>
                 <div className="relative">
                   <input
                     type="range"
@@ -327,68 +266,8 @@ export default function CategoriaPage() {
               </div>
             </div>
 
-            {/* Caliber Filter - NUEVO: Exacto como Triestina */}
-            <div className="bg-white rounded-lg border border-gray-300 shadow-sm">
-              <div className="bg-orange-600 text-white p-4 rounded-t-lg">
-                <h3 className="font-bold text-lg flex items-center justify-between">
-                  Calibre
-                  <ChevronDown className="h-5 w-5" />
-                </h3>
-              </div>
-              <div className="p-4 space-y-2">
-                {caliberFilters.map((caliber, index) => (
-                  <label key={index} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                    <input
-                      type="checkbox"
-                      checked={selectedCalibers.includes(caliber.name)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedCalibers([...selectedCalibers, caliber.name])
-                        } else {
-                          setSelectedCalibers(selectedCalibers.filter(c => c !== caliber.name))
-                        }
-                      }}
-                      className="rounded border-gray-300"
-                    />
-                    <span className="text-sm font-medium">{caliber.name}</span>
-                    <span className="text-sm text-gray-500">({caliber.count})</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Mechanism Filter - NUEVO: Exacto como Triestina */}
-            <div className="bg-white rounded-lg border border-gray-300 shadow-sm">
-              <div className="bg-orange-600 text-white p-4 rounded-t-lg">
-                <h3 className="font-bold text-lg flex items-center justify-between">
-                  Mecanismo
-                  <ChevronDown className="h-5 w-5" />
-                </h3>
-              </div>
-              <div className="p-4 space-y-2">
-                {mechanismFilters.map((mechanism, index) => (
-                  <label key={index} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
-                    <input
-                      type="checkbox"
-                      checked={selectedMechanisms.includes(mechanism.name)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedMechanisms([...selectedMechanisms, mechanism.name])
-                        } else {
-                          setSelectedMechanisms(selectedMechanisms.filter(m => m !== mechanism.name))
-                        }
-                      }}
-                      className="rounded border-gray-300"
-                    />
-                    <span className="text-sm font-medium">{mechanism.name}</span>
-                    <span className="text-sm text-gray-500">({mechanism.count})</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Brands Filter - Exacto como Triestina */}
-            <div className="bg-white rounded-lg border border-gray-300 shadow-sm">
+            {/* Brands Filter */}
+            <div className="bg-white rounded-lg border border-gray-300">
               <div className="bg-orange-600 text-white p-4 rounded-t-lg">
                 <h3 className="font-bold text-lg flex items-center justify-between">
                   Marcas
@@ -397,7 +276,7 @@ export default function CategoriaPage() {
               </div>
               <div className="p-4 space-y-2">
                 {brands.map((brand, index) => (
-                  <label key={index} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                  <label key={index} className="flex items-center space-x-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={selectedBrands.includes(brand.name)}
@@ -410,45 +289,18 @@ export default function CategoriaPage() {
                       }}
                       className="rounded border-gray-300"
                     />
-                    <span className="text-sm font-medium">{brand.name}</span>
+                    <span className="text-sm">{brand.name}</span>
                     <span className="text-sm text-gray-500">({brand.count})</span>
                   </label>
                 ))}
-              </div>
-            </div>
-
-            {/* Additional Filters - NUEVO: Exacto como Triestina */}
-            <div className="bg-white rounded-lg border border-gray-300 shadow-sm">
-              <div className="bg-orange-600 text-white p-4 rounded-t-lg">
-                <h3 className="font-bold text-lg">Filtros</h3>
-              </div>
-              <div className="p-4 space-y-3">
-                <label className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={showOnlyInStock}
-                    onChange={(e) => setShowOnlyInStock(e.target.checked)}
-                    className="rounded border-gray-300"
-                  />
-                  <span className="text-sm font-medium">Solo productos en stock</span>
-                </label>
-                <label className="flex items-center space-x-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={showOnlyRequiresCLU}
-                    onChange={(e) => setShowOnlyRequiresCLU(e.target.checked)}
-                    className="rounded border-gray-300"
-                  />
-                  <span className="text-sm font-medium">Solo armas (requiere CLU)</span>
-                </label>
               </div>
             </div>
           </aside>
 
           {/* Main Content */}
           <div className="flex-1">
-            {/* Results Header - Exacto como Triestina */}
-            <div className="bg-white rounded-lg border border-gray-300 p-4 mb-6 shadow-sm">
+            {/* Results Header */}
+            <div className="bg-white rounded-lg border border-gray-300 p-4 mb-6">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                   <p className="text-sm text-gray-600">
@@ -461,7 +313,7 @@ export default function CategoriaPage() {
                     onChange={(e) => setSortBy(e.target.value)}
                     className="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
-                    <option value="menu_order">Ordenado por los últimos</option>
+                    <option value="menu_order">Ordenar por los últimos</option>
                     <option value="popularity">Ordenar por popularidad</option>
                     <option value="rating">Ordenar por calificación</option>
                     <option value="date">Ordenar por los últimos</option>
@@ -508,7 +360,7 @@ export default function CategoriaPage() {
               ))}
             </div>
 
-            {/* Pagination - Exacto como Triestina */}
+            {/* Pagination */}
             <div className="mt-8 flex justify-center">
               <nav className="flex items-center space-x-2">
                 <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 disabled:opacity-50">

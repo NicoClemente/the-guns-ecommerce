@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { Search, ShoppingCart, Menu, X, User, Phone, Mail, MapPin, Clock, ChevronDown, Heart } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface HeaderProps {
   cartItemsCount: number;
@@ -228,23 +229,21 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
         </div>
       </div>
 
-      {/* Main Header - Exacto como Triestina */}
+      {/* Main Header - Con Logo Real */}
       <header className="bg-white shadow-md border-b-4 border-orange-600">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo - Estilo Triestina */}
+          <div className="flex items-center justify-between h-36 md:h-40">
+            {/* Logo - Extra grande */}
             <Link href="/" className="flex items-center group">
-              <div className="bg-gradient-to-br from-orange-500 to-orange-700 p-3 rounded-lg mr-4 shadow-lg">
-                <div className="text-white font-bold text-xl">TG</div>
-              </div>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-black tracking-tight">
-                  <span className="text-orange-600">THE</span>{" "}
-                  <span className="text-gray-800">GUNS</span>
-                </h1>
-                <p className="text-xs text-gray-600 uppercase tracking-wide font-bold">
-                  ARMERÍA ESPECIALIZADA
-                </p>
+              <div className="relative">
+                <Image
+                  src="/images/LogoTheGuns.png"
+                  alt="The Guns - Armería Especializada"
+                  width={300}
+                  height={300}
+                  className="object-contain transition-transform duration-300 group-hover:scale-105"
+                  priority
+                />
               </div>
             </Link>
             

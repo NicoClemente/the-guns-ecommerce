@@ -1,6 +1,7 @@
 // src/components/ui/Footer.tsx
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin, Clock, Shield, CreditCard, Truck, Star, Award } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -53,18 +54,17 @@ export function Footer() {
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Company Info */}
+          {/* Company Info - Solo logo grande */}
           <div className="lg:col-span-1">
-            <div className="flex items-center mb-8">
-              <div className="bg-gradient-to-br from-orange-500 to-orange-700 p-4 rounded-xl mr-4 shadow-xl">
-                <span className="text-white font-black text-2xl">TG</span>
-              </div>
-              <div>
-                <h3 className="text-3xl font-black">
-                  <span className="text-orange-500">THE</span>{" "}
-                  <span className="text-white">GUNS</span>
-                </h3>
-                <p className="text-gray-400 text-sm font-bold uppercase tracking-wide">Armería especializada</p>
+            <div className="flex justify-center lg:justify-start mb-8">
+              <div className="relative">
+                <Image
+                  src="/images/LogoTheGuns.png"
+                  alt="The Guns - Armería Especializada"
+                  width={100}
+                  height={100}
+                  className="object-contain"
+                />
               </div>
             </div>
             
