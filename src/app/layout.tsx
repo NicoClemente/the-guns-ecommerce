@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     url: 'https://theguns.com.ar',
     siteName: 'The Guns',
     images: [{
-      url: '/images/og-image.jpg',
+      url: '/images/LogoTheGuns.png',
       width: 1200,
       height: 630,
       alt: 'The Guns - Armería Especializada'
