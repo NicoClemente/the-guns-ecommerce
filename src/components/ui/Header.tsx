@@ -223,40 +223,31 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
 
   return (
     <>
-      {/* Top Bar - Exacto como Triestina */}
-      <div className="bg-gray-700 text-white text-sm py-2">
+      {/* Top Bar - Con letra e iconos más grandes */}
+      <div className="bg-gray-700 text-white text-base py-3">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-1">
-                <Mail className="h-4 w-4" />
-                <span>ventas@theguns.com.ar</span>
+            <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-2">
+                <Mail className="h-5 w-5" />
+                <span className="font-medium">armeriatheguns@yahoo.com.ar</span>
               </div>
-              <div className="flex items-center space-x-1">
-                <Phone className="h-4 w-4" />
-                <span>11 3974-1503</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <Phone className="h-4 w-4" />
-                <span>11 4501-6803</span>
+              <div className="flex items-center space-x-2">
+                <Phone className="h-5 w-5" />
+                <span className="font-medium">0291 15-648-6668</span>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-orange-400">Dólar: ${currentExchangeRate.toLocaleString()}</span>
-              <div className="flex items-center space-x-2">
-                <a href="#" className="text-orange-400 hover:text-orange-300">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+            <div className="flex items-center space-x-6">
+              <span className="text-orange-400 font-semibold text-lg">Dólar: ${currentExchangeRate.toLocaleString()}</span>
+              <div className="flex items-center space-x-3">
+                <a href="#" className="text-orange-400 hover:text-orange-300 transition-colors">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                   </svg>
                 </a>
-                <a href="#" className="text-orange-400 hover:text-orange-300">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                  </svg>
-                </a>
-                <a href="#" className="text-orange-400 hover:text-orange-300">
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12.017 0H7.983C3.582 0 0 3.582 0 7.983v4.034C0 16.418 3.582 20 7.983 20h4.034C16.418 20 20 16.418 20 12.017V7.983C20 3.582 16.418 0 12.017 0zm3.732 10c0 3.161-2.571 5.732-5.732 5.732S4.285 13.161 4.285 10s2.571-5.732 5.732-5.732S15.749 6.839 15.749 10z"/>
+                <a href="#" className="text-orange-400 hover:text-orange-300 transition-colors">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.017 0H7.983C3.582 0 0 3.582 0 7.983v4.034C0 16.418 3.582 20 7.983 20h4.034C16.418 20 20 16.418 20 12.017V7.983C20 3.582 16.418 0 12.017 0zm3.732 10c0 3.161-2.571 5.732-5.732 5.732S4.285 13.161 4.285 10s2.571-5.732 5.732-5.732S15.749 6.839 15.749 10z" />
                   </svg>
                 </a>
               </div>
@@ -265,82 +256,125 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
         </div>
       </div>
 
-      {/* Main Header - Con Logo Original */}
-      <header className="bg-white shadow-md border-b-4 border-orange-600">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-36 md:h-40">
-            {/* Logo - Manteniendo el tamaño original */}
-            <Link href="/" className="flex items-center group">
-              <div className="relative">
-                <Image
-                  src="/images/LogoTheGuns.png"
-                  alt="The Guns - Armería Especializada"
-                  width={300}
-                  height={300}
-                  className="object-contain transition-transform duration-300 group-hover:scale-105"
-                  priority
-                />
-              </div>
-            </Link>
-            
-            {/* Search Bar - Exacto como Triestina */}
-            <div className="hidden lg:flex flex-1 max-w-2xl mx-8">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Buscar productos..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-6 pr-20 py-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg shadow-sm"
-                />
-                <button className="absolute right-2 top-2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded font-bold transition-colors shadow-md">
-                  <Search className="h-5 w-5" />
-                </button>
+      {/* Main Header - Rediseñado, agrandado y organizado */}
+      <header className="bg-white shadow-lg border-b-4 border-orange-600">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-between h-40 md:h-48">
+            {/* Logo Section - Agrandado */}
+            <div className="flex-shrink-0">
+              <Link href="/" className="flex items-center group">
+                <div className="relative">
+                  <Image
+                    src="/images/LogoTheGuns.png"
+                    alt="The Guns - Armería Especializada"
+                    width={320}
+                    height={320}
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    priority
+                  />
+                </div>
+              </Link>
+            </div>
+
+            {/* Search Section - Centrado, agrandado y botón corregido */}
+            <div className="hidden lg:flex flex-1 justify-center px-12">
+              <div className="relative w-full max-w-3xl group">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Buscar productos, marcas, categorías..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-8 pr-36 py-5 border-2 border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg shadow-lg bg-gray-50 focus:bg-white transition-all duration-300 placeholder-gray-500 hover:shadow-xl"
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                    <button className="h-11 px-8 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105 flex items-center space-x-2">
+                      <Search className="h-5 w-5" />
+                      <span className="hidden xl:block text-sm font-black">BUSCAR</span>
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Search suggestions - Mejorado y agrandado */}
+                {searchQuery && (
+                  <div className="absolute top-full left-0 right-0 mt-3 bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 max-h-96 overflow-y-auto">
+                    <div className="p-8">
+                      <div className="text-base font-semibold text-gray-600 mb-4">Sugerencias de búsqueda:</div>
+                      <div className="space-y-3">
+                        {['Pistolas', 'Rifles', 'Municiones', 'Óptica'].map((suggestion, index) => (
+                          <div key={index} className="flex items-center p-4 hover:bg-orange-50 rounded-xl cursor-pointer transition-all duration-200 group">
+                            <Search className="h-5 w-5 text-gray-400 mr-4 group-hover:text-orange-500" />
+                            <span className="text-gray-700 group-hover:text-orange-700 text-base">{suggestion} {searchQuery}</span>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="border-t border-gray-100 mt-6 pt-6">
+                        <div className="text-base font-semibold text-gray-600 mb-4">Categorías populares:</div>
+                        <div className="flex flex-wrap gap-3">
+                          {['Pistolas Nuevas', 'Óptica', 'Airsoft', 'Municiones'].map((category, index) => (
+                            <span key={index} className="px-5 py-3 bg-orange-100 text-orange-700 rounded-full text-base hover:bg-orange-200 cursor-pointer transition-all duration-200 font-medium">
+                              {category}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Right Actions */}
-            <div className="flex items-center space-x-4">
-              {/* Cart - Exacto como Triestina */}
+            {/* Actions Section - Agrandado */}
+            <div className="flex items-center space-x-6 flex-shrink-0">
+              {/* User Account - Agrandado */}
+              <div className="hidden xl:flex items-center space-x-3 text-gray-600 hover:text-orange-600 cursor-pointer transition-colors">
+                <User className="h-6 w-6" />
+                <span className="text-base font-medium">Mi Cuenta</span>
+              </div>
+
+              {/* Cart - Agrandado */}
               <button
                 onClick={onCartClick}
-                className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-3"
+                className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-4 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-4"
               >
                 <div className="text-right hidden sm:block">
-                  <div className="text-xs opacity-90">Total</div>
-                  <div className="font-black">${(cartItemsCount * 50000).toLocaleString()}</div>
+                  <div className="text-sm opacity-90">Total</div>
+                  <div className="font-black text-base">${(cartItemsCount * 50000).toLocaleString()}</div>
                 </div>
                 <div className="relative">
                   <ShoppingCart className="h-6 w-6" />
                   {cartItemsCount > 0 && (
-                    <span className="absolute -top-3 -right-3 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-lg">
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-sm rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-lg animate-pulse">
                       {cartItemsCount}
                     </span>
                   )}
                 </div>
               </button>
 
-              {/* Mobile Menu */}
+              {/* Mobile Menu - Agrandado */}
               <button
-                className="xl:hidden p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                className="xl:hidden p-4 bg-gray-100 hover:bg-orange-100 rounded-xl transition-all duration-300 hover:shadow-md"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isMenuOpen ? <X className="h-6 w-6 text-gray-700" /> : <Menu className="h-6 w-6 text-gray-700" />}
               </button>
             </div>
           </div>
 
-          {/* Mobile Search */}
-          <div className="lg:hidden pb-4">
+          {/* Mobile Search - Agrandado */}
+          <div className="lg:hidden pb-8">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Buscar productos..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-4 pr-12 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="w-full pl-6 pr-16 py-5 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-lg shadow-lg bg-gray-50 focus:bg-white transition-all duration-300"
               />
-              <Search className="absolute right-4 top-3.5 h-5 w-5 text-gray-400" />
+              <button className="absolute right-4 top-4 p-2 text-gray-400 hover:text-orange-600 transition-colors">
+                <Search className="h-6 w-6" />
+              </button>
             </div>
           </div>
         </div>
@@ -365,7 +399,7 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
                     {item.label}
                     {item.submenu && <ChevronDown className="ml-2 h-4 w-4 group-hover:rotate-180 transition-transform duration-300" />}
                   </Link>
-                  
+
                   {/* Mega Menu Dropdown */}
                   {item.submenu && openDropdown === item.label && (
                     <div className="absolute top-full left-0 bg-white shadow-2xl py-10 px-12 z-50 min-w-[1000px] border-t-4 border-orange-600 rounded-b-lg">
@@ -394,7 +428,7 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
                   )}
                 </div>
               ))}
-              
+
               {/* Favorites separado con espacio */}
               <Link
                 href="/favoritos"

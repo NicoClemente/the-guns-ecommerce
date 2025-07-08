@@ -8,7 +8,7 @@ import Link from 'next/link'
 const heroSlides = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1400&h=600&fit=crop',
+    image: 'https://www.infodefensa.com/images/showid2/4775234?w=900&mh=700',
     brand: 'BERSA',
     title: 'MODELOS EN STOCK',
     subtitle: 'Rendimiento en cada disparo',
@@ -21,20 +21,20 @@ const heroSlides = [
   {
     id: 2,
     image: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=1400&h=600&fit=crop',
-    brand: 'GLOCK',
+    // brand: 'GLOCK',
     title: 'NUEVOS INGRESOS',
     subtitle: 'La confiabilidad que necesitás',
     description: 'Pistolas de alta gama para profesionales y deportistas exigentes',
     buttonText: 'Ver productos',
     buttonLink: '/categoria/pistolas-nuevas',
     overlay: 'bg-gradient-to-r from-black/70 via-black/50 to-transparent',
-    price: '25% OFF',
+    // price: '25% OFF',
     featured: false
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=1400&h=600&fit=crop',
-    brand: 'FEDERAL',
+    image: 'https://mf.b37mrtl.ru/rbthmedia/images/2020.07/article/5f1e862415e9f9508830b72f.jpg',
+    // brand: 'FEDERAL',
     title: 'MUNICIONES PREMIUM',
     subtitle: 'Precisión en cada cartucho',
     description: 'Cartuchos de alta calidad para tiro deportivo y defensa personal',
@@ -45,11 +45,11 @@ const heroSlides = [
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1400&h=600&fit=crop',
+    image: 'https://blog.mundilar.net/wp-content/uploads/2022/01/imagem-para-artigo-1024x513.jpeg',
     brand: 'LEUPOLD',
-    title: 'ÓPTICA PROFESIONAL',
-    subtitle: 'Visión clara del objetivo',
-    description: 'Miras telescópicas y óptica de precisión para cazadores y tiradores',
+    title: 'MIRAS TELESCÓPICAS',
+    subtitle: 'Precisión en cada disparo',
+    description: 'Miras telescópicas y sistemas ópticos de precisión para cazadores y tiradores deportivos',
     buttonText: 'Ver productos',
     buttonLink: '/categoria/optica',
     overlay: 'bg-gradient-to-r from-black/70 via-black/50 to-transparent',
@@ -57,7 +57,7 @@ const heroSlides = [
   },
   {
     id: 5,
-    image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&h=600&fit=crop',
+    image: 'https://media.campsaround.com/mainweb/wp-content/uploads/elementor/thumbs/Camping-Guide-For-Beginners-Things-You-Must-Know-Before-You-Go-Camping-qba0ht61e1j66skcprk1o33vs0q6uao1vbtwalosq8.png',
     brand: 'OFERTAS',
     title: 'LIQUIDACIÓN',
     subtitle: 'Hasta 40% de descuento',
@@ -103,7 +103,7 @@ export function HeroSlider() {
   }
 
   return (
-    <div className="relative h-[650px] overflow-hidden bg-gray-900">
+    <div className="relative h-[800px] overflow-hidden bg-gray-900">
       {heroSlides.map((slide, index) => (
         <div
           key={slide.id}
