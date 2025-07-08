@@ -1,4 +1,4 @@
-// src/components/ui/Header.tsx
+// src/components/ui/Header.tsx - Estilo La Triestina
 'use client'
 
 import { useState } from 'react';
@@ -182,6 +182,42 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
           ]
         }
       ]
+    },
+    {
+      label: 'PESCA Y CAMPING',
+      href: '/categoria/pesca-y-camping',
+      submenu: [
+        {
+          category: 'Pesca',
+          items: [
+            { name: 'Cañas de Pescar', href: '/categoria/pesca-y-camping/pesca/canas-de-pescar' },
+            { name: 'Reels y Carretes', href: '/categoria/pesca-y-camping/pesca/reels-carretes' },
+            { name: 'Líneas y Señuelos', href: '/categoria/pesca-y-camping/pesca/lineas-senuelos' },
+            { name: 'Accesorios de Pesca', href: '/categoria/pesca-y-camping/pesca/accesorios-pesca' }
+          ]
+        },
+        {
+          category: 'Camping',
+          items: [
+            { name: 'Carpas y Refugios', href: '/categoria/pesca-y-camping/camping/carpas-refugios' },
+            { name: 'Bolsas de Dormir', href: '/categoria/pesca-y-camping/camping/bolsas-dormir' },
+            { name: 'Cocina y Comida', href: '/categoria/pesca-y-camping/camping/cocina-comida' },
+            { name: 'Iluminación', href: '/categoria/pesca-y-camping/camping/iluminacion' }
+          ]
+        },
+        {
+          category: 'Outdoor',
+          items: [
+            { name: 'Mochilas', href: '/categoria/pesca-y-camping/outdoor/mochilas' },
+            { name: 'Navegación', href: '/categoria/pesca-y-camping/outdoor/navegacion' },
+            { name: 'Supervivencia', href: '/categoria/pesca-y-camping/outdoor/supervivencia' }
+          ]
+        }
+      ]
+    },
+    {
+      label: 'OFERTAS',
+      href: '/ofertas'
     }
   ];
 
@@ -229,11 +265,11 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
         </div>
       </div>
 
-      {/* Main Header - Con Logo Real */}
+      {/* Main Header - Con Logo Original */}
       <header className="bg-white shadow-md border-b-4 border-orange-600">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-36 md:h-40">
-            {/* Logo - Extra grande */}
+            {/* Logo - Manteniendo el tamaño original */}
             <Link href="/" className="flex items-center group">
               <div className="relative">
                 <Image
@@ -310,11 +346,11 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
         </div>
       </header>
 
-      {/* Navigation Bar - Exacto como Triestina */}
+      {/* Navigation Bar - Estilo La Triestina con letras más grandes y centrado */}
       <nav className="bg-orange-600 shadow-xl hidden xl:block">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+          <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center space-x-1">
               {navigationItems.map((item) => (
                 <div
                   key={item.label}
@@ -324,27 +360,27 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center px-8 py-5 text-sm font-black text-white transition-all duration-300 hover:bg-orange-700 hover:shadow-lg border-r border-orange-700/30 tracking-wide"
+                    className="flex items-center px-8 py-5 text-base font-black text-white transition-all duration-300 hover:bg-orange-700 tracking-wide"
                   >
                     {item.label}
                     {item.submenu && <ChevronDown className="ml-2 h-4 w-4 group-hover:rotate-180 transition-transform duration-300" />}
                   </Link>
                   
-                  {/* Mega Menu Dropdown - Exacto como Triestina */}
+                  {/* Mega Menu Dropdown */}
                   {item.submenu && openDropdown === item.label && (
-                    <div className="absolute top-full left-0 bg-white shadow-2xl py-8 px-10 z-50 min-w-[900px] border-t-4 border-orange-600 rounded-b-lg">
-                      <div className="grid grid-cols-4 gap-10">
+                    <div className="absolute top-full left-0 bg-white shadow-2xl py-10 px-12 z-50 min-w-[1000px] border-t-4 border-orange-600 rounded-b-lg">
+                      <div className="grid grid-cols-4 gap-12">
                         {item.submenu.map((section, index) => (
                           <div key={index}>
-                            <h3 className="font-black text-gray-800 mb-5 text-sm uppercase tracking-wider border-b-2 border-orange-200 pb-2">
+                            <h3 className="font-black text-gray-800 mb-6 text-base uppercase tracking-wider border-b-2 border-orange-200 pb-3">
                               {section.category}
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-4">
                               {section.items.map((subitem, subIndex) => (
                                 <li key={subIndex}>
                                   <Link
                                     href={subitem.href}
-                                    className="text-gray-700 hover:text-orange-600 transition-colors text-sm block py-2 hover:pl-2 hover:border-l-2 hover:border-orange-600 font-medium"
+                                    className="text-gray-700 hover:text-orange-600 transition-colors text-base block py-2 hover:pl-3 hover:border-l-3 hover:border-orange-600 font-medium leading-relaxed"
                                   >
                                     {subitem.name}
                                   </Link>
@@ -354,28 +390,18 @@ export function Header({ cartItemsCount, onCartClick, currentExchangeRate }: Hea
                           </div>
                         ))}
                       </div>
-                      
-                      {/* Featured Banner en Dropdown */}
-                      <div className="mt-8 pt-6 border-t border-gray-200">
-                        <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-4 text-white">
-                          <h4 className="font-bold mb-1">¡Ofertas Especiales!</h4>
-                          <p className="text-sm opacity-90">Hasta 25% OFF en productos seleccionados</p>
-                        </div>
-                      </div>
                     </div>
                   )}
                 </div>
               ))}
-            </div>
-            
-            {/* Favorites en Nav - Exacto como Triestina */}
-            <div className="flex items-center">
+              
+              {/* Favorites separado con espacio */}
               <Link
                 href="/favoritos"
-                className="flex items-center space-x-2 text-white hover:bg-orange-700 px-6 py-5 transition-all duration-300 border-l border-orange-700/30"
+                className="flex items-center space-x-2 text-white hover:bg-orange-700 px-8 py-5 transition-all duration-300 ml-8"
               >
                 <Heart className="h-5 w-5" />
-                <span className="font-black text-sm tracking-wide">FAVORITOS</span>
+                <span className="font-black text-base tracking-wide">FAVORITOS</span>
               </Link>
             </div>
           </div>
